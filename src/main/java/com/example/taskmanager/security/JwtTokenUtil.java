@@ -25,6 +25,7 @@ public class JwtTokenUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    // Token Generation
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return Jwts.builder()
@@ -36,6 +37,7 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    // Username From Token
     public String getUsernameFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -45,16 +47,19 @@ public class JwtTokenUtil {
                 .getSubject();
     }
 
+    // Validate Token
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    // Token Expiry
     private boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
+    // Expiry Date
     private Date getExpirationDateFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())

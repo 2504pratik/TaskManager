@@ -15,15 +15,18 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
 
+    // Get all tasks
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
+    // Get task by id
     public Task getTaskById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + id));
     }
 
+    // Create a new task
     public Task createTask(TaskDTO taskDTO) {
         Task task = new Task();
         task.setTitle(taskDTO.getTitle());
@@ -32,6 +35,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    // Update an existing task
     public Task updateTask(Long id, TaskDTO taskDTO) {
         Task task = getTaskById(id);
         task.setTitle(taskDTO.getTitle());
@@ -40,6 +44,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    // Delete a task
     public void deleteTask(Long id) {
         if (!taskRepository.existsById(id)) {
             throw new TaskNotFoundException("Task not found with id: " + id);
@@ -47,6 +52,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    // Mark a task as completed
     public Task completeTask(Long id) {
         Task task = getTaskById(id);
         task.setStatus(TaskStatus.COMPLETED);

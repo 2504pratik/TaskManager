@@ -25,13 +25,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("h2-console/**")
+                        .ignoringRequestMatchers("h2-console/**") //h2-console config
                         .disable())
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.disable()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll() // No auth required for /auth endpoints
+                        .requestMatchers("/h2-console/**").permitAll() // h2-console config
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

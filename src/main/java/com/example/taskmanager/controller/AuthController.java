@@ -23,6 +23,8 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
 
+    // Login using username and password
+    // One user is created with username: admin and password: password
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         authenticationManager.authenticate(
