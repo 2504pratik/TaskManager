@@ -20,11 +20,13 @@ cd TaskManager-main
 ```bash
 mvn clean install
 ```
+
 3. Run tests:
 ```bash
 mvn test
 ```
 This will execute all tests from the TaskControllerTest file located in the src/test/java/controller folder.
+
 4. Run the application:
 ```bash
 mvn spring-boot:run
